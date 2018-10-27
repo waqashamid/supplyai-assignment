@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'bouncer',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -69,6 +71,15 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'supplyAI.wsgi.application'
 
+AUTH_USER_MODEL = 'bouncer.User'
+
+# Email Credentials
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'waqas7hamid@gmail.com'
+EMAIL_HOST_PASSWORD = 'testemail123'
+EMAIL_PORT = 587
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases

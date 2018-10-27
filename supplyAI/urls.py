@@ -14,8 +14,15 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.conf.urls import url
+from django.conf.urls import include
+from rest_framework.documentation import include_docs_urls
+
+admin.site.site_header = "SupplyAI : Admin"
+admin.site.site_title = "SupplyAI : Admin"
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    url(r'^', include_docs_urls(title='SupplyAI API')),
+    url('admin/', admin.site.urls),
+    url('api/v1/bouncer/', include('bouncer.urls')),
 ]
