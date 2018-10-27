@@ -10,9 +10,9 @@ class Base(models.Model):
 
 class Product(Base):
     title = models.CharField(max_length=255)
-    image_url = models.CharField(max_length=255)
-    price = models.DecimalField(decimal_places=2, max_digits=15)
-    product_url = models.CharField(max_length=255)
+    image_url = models.CharField(max_length=255, null=True, blank=True)
+    price = models.DecimalField(decimal_places=2, max_digits=15, null=True, blank=True)
+    product_url = models.CharField(max_length=255, null=True, blank=True)
 
     def __str__(self):
         return self.title
