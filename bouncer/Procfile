@@ -1,0 +1,1 @@
+web: gunicorn supplyAI.wsgi --log-file -
