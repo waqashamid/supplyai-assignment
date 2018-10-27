@@ -25,7 +25,7 @@ SECRET_KEY = 'n(gw-a=u@m!-uj5%b#0)$ix18&yhr#!&h8g&9r)^jyz87^5ae*'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['supplyai-test.herokuapp.com', 'localhost:8000']
 
 
 # Application definition
