@@ -86,8 +86,6 @@ Flask==0.12.2
 Flask-RESTful==0.3.6
 flex==6.12.0
 fpdf==1.7.2
-ftb.service.bouncer==0.0.0
-ftb.service.messenger==0.0.0
 future==0.16.0
 geoip2==2.7.0
 gi==1.2
