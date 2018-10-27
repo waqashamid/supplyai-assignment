@@ -1,8 +1,9 @@
 from rest_framework import status, views
 from rest_framework.response import Response
-from .models import User, UserData
+from .models import User, UserData, Product
 from django.db import DatabaseError
 from .helpers import send_verification_email
+from .serializers import ProductSerializer
 
 class RegisterUser(views.APIView):
 
@@ -44,3 +45,18 @@ class VerifyEmailRegisterUser(views.APIView):
                 return Response({"Error": "Activation code invalid or expired"}, status=status.HTTP_304_NOT_MODIFIED)
         except DatabaseError as e:
             return Response({"Error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+class FetchProducts(views.APIView):
+
+    def get(self, request, **kwargs):
+        try:
+            start = int(kwargs.get('start'))
+            stop = int(kwargs.get('stop'))
+        except KeyError as e:
+            return Response({"Error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            products = Product.objects.all()[start:stop]
+            return Response([ProductSerializer(product).data for product in products], status=status.HTTP_200_OK)
+        except DatabaseError as e:
+            return Response({"Error": str(e)}, status=status.HTTP_304_NOT_MODIFIED)
