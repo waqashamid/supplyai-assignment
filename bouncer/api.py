@@ -38,6 +38,7 @@ class VerifyEmailRegisterUser(views.APIView):
                 return Response({"Error": "Link expired. Unable to login"}, status=status.HTTP_304_NOT_MODIFIED)
             if key == user_data.activation_key:
                 user_data.is_key_expired = True
+                user.is_active = True
                 user.save()
                 user_data.save()
                 return Response({"Success" : "Successfully registered"}, status=status.HTTP_200_OK)
