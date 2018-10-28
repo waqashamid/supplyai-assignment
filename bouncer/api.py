@@ -40,7 +40,7 @@ class VerifyEmailRegisterUser(views.APIView):
             return Response({"Error": str(e)}, status=status.HTTP_404_NOT_FOUND)
         try:
             if user_data.is_key_expired:
-                return Response({"Error": "Link expired. Unable to login"}, status=status.HTTP_304_NOT_MODIFIED)
+                return Response({"Error": "Link expired. Unable to login"}, status=status.HTTP_204_NO_CONTENT)
             if key == user_data.activation_key:
                 user_data.is_key_expired = True
                 user.is_active = True
@@ -50,7 +50,7 @@ class VerifyEmailRegisterUser(views.APIView):
             else:
                 return Response({"Error": "Activation code invalid or expired"}, status=status.HTTP_304_NOT_MODIFIED)
         except DatabaseError as e:
-            return Response({"Error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"Error": str(e)}, status=status.HTTP_304_NOT_MODIFIED)
 
 class FetchProducts(views.APIView):
 
