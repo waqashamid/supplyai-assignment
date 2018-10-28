@@ -201,3 +201,4 @@ yarg==0.1.9
 youtube-dl==2018.2.11
 zope.interface==4.4.3
 django-heroku
+django-cors-headers==2.4.0
