@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
-import django_heroku
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -26,7 +25,7 @@ SECRET_KEY = 'n(gw-a=u@m!-uj5%b#0)$ix18&yhr#!&h8g&9r)^jyz87^5ae*'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['supplyai-test.herokuapp.com', 'localhost:8000']
+ALLOWED_HOSTS = ['supplyai-test.herokuapp.com', 'localhost:8000', 'localhost', ]
 
 
 # Application definition
@@ -57,7 +56,7 @@ ROOT_URLCONF = 'supplyAI.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['templates', ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -84,12 +83,14 @@ EMAIL_PORT = 587
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
-# DATABASE_URL = "postgres://yroamjkrvuojmf:547985f979af824d150b96aa45ba4f6e21760b82dfe1ce1d6f14ce52424cec81@ec2-107-22-189-136.compute-1.amazonaws.com:5432/dbiu5gdi66hss2"
-# DATABASES = {
-#     'default': dj_database_url.config(
-#         default=config('DATABASE_URL')
-#     )
-# }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}
+
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
@@ -141,6 +142,3 @@ STATIC_TMP = os.path.join(BASE_DIR, 'static')
 # )
 
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
-
-# Activate Django-Heroku.
-django_heroku.settings(locals())

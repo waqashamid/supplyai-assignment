@@ -4,6 +4,11 @@ from .models import User, UserData, Product
 from django.db import DatabaseError
 from .helpers import send_verification_email
 from .serializers import ProductSerializer
+from django.shortcuts import render
+
+class FetchRegistrationForm(views.APIView):
+    def get(self, request, **kwargs):
+        return render(request, 'signupform.html')
 
 class RegisterUser(views.APIView):
 
