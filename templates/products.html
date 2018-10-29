@@ -1,31 +1,103 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css">
-    <link rel="stylesheet" href="./assets/css/main.css">
-    <style>
-        .page_loader{
-            display: flex;
-            justify-content: center;
-        }
-    </style>
+	<meta charset="utf-8">
+	<title>Data</title>	
+	
+	<style type="text/css">
+
+
+	.card{
+	width: 100px;
+	height: 100px;
+    background-color: white;
+}
+	.container{
+		background-color: #778899;
+		/*background-color: steelblue;*/
+		padding:150px;
+		display:flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+}
+	.title{
+		width:150px;
+	}
+ .contentDiv{
+ 	padding:20px;
+ }
+
+
+</style>
+
+	
 </head>
 <body>
-    <div class="container">
-        <div class="columns is-multiline" id="cards-holder">
-            
-        </div>
-        <div class="columns is-mobile is-centered">
-            <div class="column is-half page_loader">
-               <img src="./assets/img/spin.gif"  alt="">
-            </div>
-        </div>
-    </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="./assets/js/main.js"></script>
+	<div class="container" id="parent"></div>
+
+<!-- ********** THE JAVASCRIPT PART STARTS HERE************ -->
+<script>
+	function myFunction(imgsrc, title, ID) {
+        var parent = document.getElementById("parent");
+  		var div = document.createElement("div");
+  		div.setAttribute("class","contentDiv");
+  		var x = document.createElement("IMG");
+  		x.setAttribute("src", imgsrc);
+  		x.setAttribute("alt", "image");
+  		x.setAttribute("id", ID);
+  		x.setAttribute("height","150px");
+  		x.setAttribute("width","150px");
+  		parent.appendChild(div).appendChild(x);
+  		let textNode = document.createTextNode(title);	
+  		var title = document.createElement('p');
+  		title.setAttribute("class","title");
+        div.append(title);
+  		title.append(textNode);	
+   }
+  
+// ************************DATA-FETCH*******************************************
+
+	let jsonObj;
+	var elemNo = 11;
+	var lastOffset = 12;
+	var startOffset; 
+	var fetchNext = false;
+    window.onscroll = function(ev) {
+    if ((window.innerHeight + window.scrollY) > document.body.scrollHeight) {
+        fetchNext = true;
+        console.log(fetchNext);
+
+    }
+    if(fetchNext){
+    	startOffset = lastOffset + 1;
+    	lastOffset = startOffset + elemNo;
+    	fetch('https://supplyai-test.herokuapp.com/api/v1/bouncer/products/'+startOffset+'/'+lastOffset)
+	.then(function(response){
+	  return response.json();
+	})
+	.then(function(myJson) {
+	  jsonObj = myJson;
+	  for (var i=0; i<jsonObj.length; i++) {
+	    myFunction(jsonObj[i].image_url, jsonObj[i].title, jsonObj[i].id);
+	  }
+      fetchNext = false;
+	});
+
+    }
+};
+	fetch('https://supplyai-test.herokuapp.com/api/v1/bouncer/products/0/12')
+	.then(function(response){
+
+	  return response.json();
+	})
+	.then(function(myJson) {
+	  jsonObj = myJson;
+	  for (var i=0; i<jsonObj.length; i++) {
+	    myFunction(jsonObj[i].image_url, jsonObj[i].title, jsonObj[i].id);
+	  }
+
+	});
+</script>
+
 </body>
 </html>

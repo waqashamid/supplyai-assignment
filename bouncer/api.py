@@ -47,7 +47,7 @@ class VerifyEmailRegisterUser(views.APIView):
                 user.is_active = True
                 user.save()
                 user_data.save()
-                return render(request, 'product.html')
+                return render(request, 'products.html')
             else:
                 return Response({"Error": "Activation code invalid or expired"}, status=status.HTTP_304_NOT_MODIFIED)
         except DatabaseError as e:
