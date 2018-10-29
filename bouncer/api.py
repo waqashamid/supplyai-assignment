@@ -7,10 +7,12 @@ from .serializers import ProductSerializer
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 
+# Get Signup form
 class FetchRegistrationForm(views.APIView):
     def get(self, request, **kwargs):
         return render(request, 'signupform.html')
 
+# Send email to register user
 class RegisterUser(views.APIView):
 
     def post(self, request, **kwargs):
@@ -30,6 +32,7 @@ class RegisterUser(views.APIView):
         elif msg[0] == 3:
             return Response({"Error": msg[0]}, status=status.HTTP_400_BAD_REQUEST)
 
+# Verify email and register user. Show products on redirection.
 class VerifyEmailRegisterUser(views.APIView):
 
     def get(self, request, **kwargs):
@@ -53,6 +56,7 @@ class VerifyEmailRegisterUser(views.APIView):
         except DatabaseError as e:
             return Response({"Error": str(e)}, status=status.HTTP_304_NOT_MODIFIED)
 
+# Returns a list of all the products with start/stop to support infinite scrolling.
 class FetchProducts(views.APIView):
 
     def get(self, request, **kwargs):

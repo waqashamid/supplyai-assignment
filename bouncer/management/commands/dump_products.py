@@ -5,6 +5,7 @@ products_url = "https://{}:{}@{}.myshopify.com/admin/products.json".format(SHOPI
                                                                            SHOP_NAME)
 from bouncer.models import Product
 
+# Collect products from shopify and dump it to the database
 class Command(BaseCommand):
     def handle(self, *args, **options):
         all_products = requests.get(products_url).json()['products']
