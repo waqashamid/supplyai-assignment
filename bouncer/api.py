@@ -5,6 +5,7 @@ from django.db import DatabaseError
 from .helpers import send_verification_email
 from .serializers import ProductSerializer
 from django.shortcuts import render
+from django.http import HttpResponse, HttpResponseRedirect
 
 class FetchRegistrationForm(views.APIView):
     def get(self, request, **kwargs):
@@ -39,14 +40,14 @@ class VerifyEmailRegisterUser(views.APIView):
         except (KeyError, User.DoesNotExist, UserData.DoesNotExist) as e:
             return Response({"Error": str(e)}, status=status.HTTP_404_NOT_FOUND)
         try:
-            if user_data.is_key_expired:
-                return Response({"Error": "Link expired. Unable to login"}, status=status.HTTP_204_NO_CONTENT)
+            # if user_data.is_key_expired:
+            #     return Response({"Error": "Link expired. Unable to login"}, status=status.HTTP_204_NO_CONTENT)
             if key == user_data.activation_key:
                 user_data.is_key_expired = True
                 user.is_active = True
                 user.save()
                 user_data.save()
-                return Response({"Success" : "Successfully registered"}, status=status.HTTP_200_OK)
+                return render(request, 'products.html')
             else:
                 return Response({"Error": "Activation code invalid or expired"}, status=status.HTTP_304_NOT_MODIFIED)
         except DatabaseError as e:
