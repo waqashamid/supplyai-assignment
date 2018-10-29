@@ -43,16 +43,16 @@ class VerifyEmailRegisterUser(views.APIView):
         except (KeyError, User.DoesNotExist, UserData.DoesNotExist) as e:
             return Response({"Error": str(e)}, status=status.HTTP_404_NOT_FOUND)
         try:
-            if user_data.is_key_expired:
-                return Response({"Error": "Link expired. Unable to login"}, status=status.HTTP_204_NO_CONTENT)
-            if key == user_data.activation_key:
+            if key == user_data.activation_key and not user_data.is_key_expired:
                 user_data.is_key_expired = True
                 user.is_active = True
                 user.save()
                 user_data.save()
                 return render(request, 'products.html')
+            elif user_data.is_key_expired and key == user_data.activation_key:
+                return Response({"Error": "Link expired. Unable to login"}, status=status.HTTP_204_NO_CONTENT)
             else:
-                return Response({"Error": "Activation code invalid or expired"}, status=status.HTTP_304_NOT_MODIFIED)
+                return Response({"Error": "Activation code invalid"}, status=status.HTTP_400_BAD_REQUEST)
         except DatabaseError as e:
             return Response({"Error": str(e)}, status=status.HTTP_304_NOT_MODIFIED)
 

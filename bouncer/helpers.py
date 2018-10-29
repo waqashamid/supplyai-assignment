@@ -9,15 +9,13 @@ def send_verification_email(email):
         user = User.objects.get(email=email)
     except User.DoesNotExist:
         return 1, "User does not exist"
-    if user.is_active:
-        return 2, "User already registered"
     user_data, created = UserData.objects.get_or_create(user=user)
     key = ''.join(random.choice('0123456789ABCDEF') for _ in range(32))
     subject = "Welcome to SupplyAI!"
     link = HOST + REGISTER_REDIRECT_URL + str(user.id) + '/' + key
     from_email = EMAIL_HOST_USER
     to_list = [user.email]
-    message = 'Please use the following link to register.\n\n{}'.format(link)
+    message = 'Please use the following link to login.\n\n{}'.format(link)
     try:
         send_mail(subject, message, from_email, to_list, fail_silently=True)
     except KeyError as e:
