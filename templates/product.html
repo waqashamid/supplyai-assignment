@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Data</title>	
+	
+	<style type="text/css">
+
+
+	.card{
+	width: 100px;
+	height: 100px;
+    background-color: white;
+}
+	.container{
+		background-color: #778899;
+		/*background-color: steelblue;*/
+		padding:50px;
+		display:flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+}
+	.title{
+		width:150px;
+	}
+ .contentDiv{
+ 	padding:20px;
+ }
+</style>
+
+	
+</head>
+<body>
+	<div class="container" id="parent"></div>
+<!-- <script type="text/javascript" src="app.js"></script> -->
+
+<!-- ********** THE JAVASCRIPT PART STARTS HERE************ -->
+<script>
+	function myFunction(imgsrc, title, ID) {
+        var parent = document.getElementById("parent");
+  		var div = document.createElement("div");
+  		div.setAttribute("class","contentDiv");
+  		var x = document.createElement("IMG");
+  		x.setAttribute("src", imgsrc);
+  		x.setAttribute("alt", "image");
+  		x.setAttribute("id", ID);
+  		x.setAttribute("height","150px");
+  		x.setAttribute("width","150px");
+  		parent.appendChild(div).appendChild(x);
+  		let textNode = document.createTextNode(title);	
+  		var title = document.createElement('p');
+  		title.setAttribute("class","title");
+        div.append(title);
+  		title.append(textNode);	
+   }
+  
+// ************************DATA-FETCH*******************************************
+
+	let jsonObj;
+	fetch('https://supplyai-test.herokuapp.com/api/v1/bouncer/products/0/45')
+	.then(function(response){
+	  // console.log(response);
+
+	  return response.json();
+	})
+	.then(function(myJson) {
+	  jsonObj = myJson;
+	  for (var i=0; i<jsonObj.length; i++) {
+	    myFunction(jsonObj[i].image_url, jsonObj[i].title, jsonObj[i].id);
+	  }
+	  // console.log(myJson);
+
+	});
+</script>
+
+</body>
+</html>
