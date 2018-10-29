@@ -40,8 +40,8 @@ class VerifyEmailRegisterUser(views.APIView):
         except (KeyError, User.DoesNotExist, UserData.DoesNotExist) as e:
             return Response({"Error": str(e)}, status=status.HTTP_404_NOT_FOUND)
         try:
-            # if user_data.is_key_expired:
-            #     return Response({"Error": "Link expired. Unable to login"}, status=status.HTTP_204_NO_CONTENT)
+            if user_data.is_key_expired:
+                return Response({"Error": "Link expired. Unable to login"}, status=status.HTTP_204_NO_CONTENT)
             if key == user_data.activation_key:
                 user_data.is_key_expired = True
                 user.is_active = True
