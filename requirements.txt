@@ -63,7 +63,7 @@ django-rest-swagger==2.1.2
 django-sphinxdoc==1.5.1
 django-storages==1.6.6
 django-user-accounts==2.0.3
-djangorestframework==3.8.2
+djangorestframework==3.11.2
 docker==3.4.1
 docker-compose==1.21.2
 docker-pycreds==0.3.0
