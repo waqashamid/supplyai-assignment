@@ -147,7 +147,7 @@ python-dateutil==2.7.3
 python-mimeparse==1.6.0
 python3-openid==3.1.0
 pytz==2018.5
-PyYAML==3.13
+PyYAML==5.4
 ratelimiter==1.2.0.post0
 reportlab==3.4.0
 requests==2.18.4
