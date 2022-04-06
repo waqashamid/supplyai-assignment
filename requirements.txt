@@ -178,7 +178,7 @@ termcolor==1.1.0
 texttable==0.9.1
 titlecase==0.12.0
 twilio==6.15.1
-Twisted==17.9.0
+Twisted==21.2.0
 txaio==2.10.0
 uritemplate==3.0.0
 urllib3==1.22
