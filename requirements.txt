@@ -149,7 +149,7 @@ python3-openid==3.1.0
 pytz==2018.5
 PyYAML==3.13
 ratelimiter==1.2.0.post0
-reportlab==3.4.0
+reportlab==3.5.55
 requests==2.18.4
 requests-oauthlib==0.8.0
 requirements-detector==0.5.2
