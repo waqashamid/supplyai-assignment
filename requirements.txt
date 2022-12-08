@@ -21,7 +21,7 @@ bs4==0.0.1
 bson==0.5.1
 cached-property==1.4.3
 cement==2.8.2
-certifi==2018.4.16
+certifi==2022.12.7
 cffi==1.10.0
 channels==2.1.0
 chardet==3.0.4
